@@ -1,13 +1,12 @@
 package Ejemplo.demo;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
 @RestController
+@RequestMapping("/papa")
 public class DemoApplication {
 
 	@GetMapping("/")
@@ -18,8 +17,6 @@ public class DemoApplication {
 	@GetMapping("/About")
 	public String about(){
 		return "estamos en About";
-
-
 	}
 
 	@GetMapping("/us")
@@ -35,9 +32,27 @@ public class DemoApplication {
 	@GetMapping("/login/{username}/{password}")
 	public HashMap<String, Object> login(@PathVariable String username, @PathVariable String password){
 		HashMap<String, Object> objJson = new HashMap<>();
-		objJson.put("username", username);
-		objJson.put("password", password);
+		/*objJson.put("username", username);
+		objJson.put("password", password); */
+		objJson.put(username, password);
 		return objJson;
 	}
+
+	// Metodo POST
+	@PostMapping("/login")
+	public User postLogin(@RequestParam String username, @RequestParam String password){
+		User oUser = new User(username, password);
+		return oUser;
+	}
+
+	@PostMapping("/login1")
+	public User postLogin1(@RequestBody User user){
+		return user;
+	}
+
+
+
+
+
 }
 
